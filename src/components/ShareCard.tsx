@@ -74,7 +74,7 @@ export function ShareCard({ score, chaosCount, mode }: ShareCardProps) {
             }}
           >
             <div style={{ fontSize: "0.55rem", color: "#00ffff55", letterSpacing: "4px", marginBottom: "0.5rem" }}>
-              WENDER MEDIA LAYOUT DESTRUCTION SUITE
+              ARNOLD WENDER LAYOUT DESTRUCTION SUITE
             </div>
             <div style={{ fontSize: "1.4rem", color: "#00ffff", letterSpacing: "3px", textShadow: "0 0 20px #00ffff", marginBottom: "0.5rem" }}>
               CSS UN-CENTER PRO
