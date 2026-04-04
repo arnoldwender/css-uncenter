@@ -30,7 +30,7 @@ export function Footer({ chaosCount: c, mode }: FooterProps) {
         CSS UN-CENTER PRO — BECAUSE CENTERED LAYOUTS ARE TOO MAINSTREAM
       </div>
       <div>
-        BUILT BY WENDER MEDIA — WE KNOW HOW TO CENTER DIVS. WE JUST CHOSE NOT
+        BUILT BY ARNOLD WENDER — WE KNOW HOW TO CENTER DIVS. WE JUST CHOSE NOT
         TO.
       </div>
       <div style={{ color: "#ff000022", marginTop: "0.3rem" }}>
