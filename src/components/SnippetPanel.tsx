@@ -1,11 +1,15 @@
-import { CSS_SNIPPETS } from "../constants";
+import { motion } from "framer-motion";
+import { type CSSSnippet } from "../constants";
 
+/* ── Snippet panel — click to apply chaos rules to the preview ── */
 interface SnippetPanelProps {
+  snippets: CSSSnippet[];
   applied: string[];
-  onApply: (snippet: (typeof CSS_SNIPPETS)[number]) => void;
+  onApply: (snippet: CSSSnippet, event: React.MouseEvent) => void;
+  title?: string;
 }
 
-export function SnippetPanel({ applied, onApply }: SnippetPanelProps) {
+export function SnippetPanel({ snippets, applied, onApply, title }: SnippetPanelProps) {
   return (
     <div style={{ marginBottom: "1.5rem" }}>
       <div
@@ -16,28 +20,29 @@ export function SnippetPanel({ applied, onApply }: SnippetPanelProps) {
           marginBottom: "0.75rem",
         }}
       >
-        APPLY CSS RULES — CLICK TO DESTROY
+        {title || "APPLY CSS RULES — CLICK TO DESTROY"}
       </div>
       <div style={{ display: "grid", gap: "0.5rem" }}>
-        {CSS_SNIPPETS.map((s, i) => {
+        {snippets.map((s, i) => {
           const done = applied.includes(s.label);
           return (
-            <div
+            <motion.div
               key={i}
-              className={done ? "" : "snippet-btn"}
-              onClick={() => onApply(s)}
+              whileHover={done ? {} : { scale: 1.01, borderColor: "#00ffff44" }}
+              whileTap={done ? {} : { scale: 0.99 }}
+              onClick={(e) => onApply(s, e)}
               style={{
                 border: `1px solid ${done ? "#00ffff44" : "#00ffff22"}`,
                 background: done ? "#00ffff0f" : "transparent",
                 padding: "0.6rem 0.9rem",
                 cursor: done ? "default" : "pointer",
-                transition: "all 0.15s",
               }}
             >
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                   marginBottom: done ? "0.4rem" : "0",
                 }}
               >
@@ -48,17 +53,27 @@ export function SnippetPanel({ applied, onApply }: SnippetPanelProps) {
                     letterSpacing: "2px",
                   }}
                 >
-                  {done ? "✓ APPLIED — " : "> "}
+                  {done ? "\u2713 APPLIED \u2014 " : "> "}
                   {s.label}
                 </span>
-                {!done && (
-                  <span style={{ fontSize: "0.58rem", color: "#00ffff44" }}>
-                    APPLY
-                  </span>
-                )}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  {!done && (
+                    <span style={{ fontSize: "0.5rem", color: "#00ff8866", letterSpacing: "1px" }}>
+                      +{s.points} PTS
+                    </span>
+                  )}
+                  {!done && (
+                    <span style={{ fontSize: "0.58rem", color: "#00ffff44" }}>
+                      APPLY
+                    </span>
+                  )}
+                </div>
               </div>
               {done && (
-                <pre
+                <motion.pre
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.2 }}
                   style={{
                     margin: 0,
                     fontSize: "0.6rem",
@@ -66,10 +81,10 @@ export function SnippetPanel({ applied, onApply }: SnippetPanelProps) {
                     lineHeight: "1.6",
                   }}
                 >
-                  {s.css}
-                </pre>
+                  {s.funnyComment}{"\n"}{s.css}
+                </motion.pre>
               )}
-            </div>
+            </motion.div>
           );
         })}
       </div>
