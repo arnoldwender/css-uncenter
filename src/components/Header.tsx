@@ -31,7 +31,7 @@ export function Header({ title, chaosCount: c, mode, score }: HeaderProps) {
           marginBottom: "0.5rem",
         }}
       >
-        WENDER MEDIA LAYOUT DESTRUCTION SUITE
+        ARNOLD WENDER LAYOUT DESTRUCTION SUITE
       </div>
       <motion.h1
         animate={{
