@@ -2,7 +2,7 @@
 
 **The anti-centering tool — un-center every perfectly aligned element with physics and chaos.**
 
-Built by [Arnold Wender](https://github.com/arnoldwender)
+Built by [Arnold Wender](https://arnoldwender.com)
 
 [:rocket: Live Demo](https://css-uncenter.netlify.app)
 
