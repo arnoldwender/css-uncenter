@@ -1,0 +1,44 @@
+# CSS Un-Center Pro
+
+> Layout Destruction Suite -- Making divs suffer since 2026.
+
+CSS Un-Center Pro is a humorous interactive React web app that demonstrates destructive CSS anti-patterns. Users apply CSS snippets to a live preview and watch the layout progressively break. It features a retro terminal aesthetic with glitch effects and scanlines.
+
+## Tech stack
+
+- React 18 with TypeScript
+- Vite 5 (build tool and dev server)
+- Tailwind CSS 3
+- Lucide React (icons)
+- No backend; purely client-side
+
+## Repository structure
+
+- src/App.tsx: Main component, manages chaos state and animations
+- src/constants.ts: CSS snippets, chaos tips, glitch characters
+- src/utils.ts: glitchText() utility
+- src/index.css: Tailwind directives and global styles
+- src/components/Header.tsx: Title and badge tags
+- src/components/ChaosMeter.tsx: Chaos level progress bar
+- src/components/LivePreview.tsx: Interactive preview that deteriorates with chaos
+- src/components/SnippetPanel.tsx: Buttons to apply CSS snippets
+- src/components/Footer.tsx: Misaligned footer
+- src/components/Overlays.tsx: Scanline and vignette visual effects
+- src/hooks/useGlitchTitle.ts: Periodic title glitch effect
+- src/hooks/useRotatingTip.ts: Rotating pro-tip display
+
+## Key concepts
+
+- Chaos level: 0-100%, increases by 25% per applied snippet (4 snippets total)
+- CSS snippets: Defined in constants.ts with id, label, target, and CSS code
+- Components receive chaos level as a prop and conditionally style based on thresholds
+- Dynamic styling uses inline styles; static styling uses Tailwind classes
+- Color palette: #00ffff (cyan primary), #000 (background), #ff9900 (warning), #ff0000 (danger)
+
+## Commands
+
+- npm run dev: Start dev server (port 5173)
+- npm run build: Production build to dist/
+- npm run lint: ESLint
+- npm run typecheck: TypeScript type checking
+- npm run preview: Preview production build
