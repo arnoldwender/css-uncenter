@@ -1,0 +1,22 @@
+# CSS Uncenter
+
+> The anti-centering tool — un-center every perfectly aligned element with physics and chaos.
+
+## Tech Stack
+- React 18, TypeScript, Vite, Tailwind CSS
+- Framer Motion, canvas-confetti, html2canvas, Lucide React
+
+## Key Files
+- src/App.tsx — main application entry
+- src/components/ — UI components (preview, slider, CSS output panel, chaos controls)
+- src/hooks/ — custom React hooks
+- src/constants.ts — mode definitions and configuration
+- src/utils.ts — physics calculations and CSS generation
+
+## Features
+- 4 un-centering modes (Drift, Earthquake, Gravity, Chaos), live preview
+- Before/after slider, CSS output panel, score system, hidden chaos panel
+
+## URLs
+- Live: https://css-uncenter.netlify.app
+- Repo: https://github.com/arnoldwender/css-uncenter
