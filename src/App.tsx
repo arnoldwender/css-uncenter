@@ -31,6 +31,9 @@ import { CSSOutputPanel } from "./components/CSSOutputPanel";
 import { Achievements } from "./components/Achievements";
 import { ShareCard } from "./components/ShareCard";
 import { Footer } from "./components/Footer";
+import { DevToolsPanel } from "./components/DevToolsPanel";
+import { CenteringReport } from "./components/CenteringReport";
+import { ChangelogProTier } from "./components/ChangelogProTier";
 
 /* ── Main app: orchestrates chaos state, scores, achievements, and effects ── */
 export default function App() {
@@ -227,6 +230,15 @@ export default function App() {
         </AnimatePresence>
 
         <CSSOutputPanel appliedSnippets={appliedSnippets} />
+
+        {/* DevTools-style CSS inspection panel */}
+        <DevToolsPanel appliedSnippets={appliedSnippets} mode={mode} chaos={chaos} />
+
+        {/* Lighthouse-style centering compliance gauges */}
+        <CenteringReport appliedSnippets={appliedSnippets} chaos={chaos} score={score} />
+
+        {/* Fake changelog and Pro tier marketing */}
+        <ChangelogProTier />
 
         <Achievements
           achievements={ACHIEVEMENTS}
