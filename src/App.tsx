@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   CSS_SNIPPETS,
   EXTRA_SNIPPETS,
@@ -210,24 +210,21 @@ export default function App() {
           onApply={applyChaos}
         />
 
-        {/* Easter egg: extra snippets unlocked at max chaos */}
-        <AnimatePresence>
-          {extraUnlocked && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <SnippetPanel
-                snippets={EXTRA_SNIPPETS}
-                applied={applied}
-                onApply={applyExtraChaos}
-                title='EVEN MORE CHAOS — UNLOCKED'
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Easter egg: extra snippets unlocked at max chaos — no AnimatePresence to prevent render blocking */}
+        {extraUnlocked && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <SnippetPanel
+              snippets={EXTRA_SNIPPETS}
+              applied={applied}
+              onApply={applyExtraChaos}
+              title='EVEN MORE CHAOS — UNLOCKED'
+            />
+          </motion.div>
+        )}
 
         <CSSOutputPanel appliedSnippets={appliedSnippets} />
 
