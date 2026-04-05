@@ -9,6 +9,9 @@
 ## Key Files
 - src/App.tsx — main application entry
 - src/components/ — UI components (preview, slider, CSS output panel, chaos controls)
+- src/components/DevToolsPanel.tsx — Chrome DevTools panel clone
+- src/components/LighthouseReport.tsx — Lighthouse centering report with SVG gauges
+- src/components/ChangelogProTier.tsx — Changelog and Pro Tier (3 tiers)
 - src/hooks/ — custom React hooks
 - src/constants.ts — mode definitions and configuration
 - src/utils.ts — physics calculations and CSS generation
@@ -16,6 +19,10 @@
 ## Features
 - 4 un-centering modes (Drift, Earthquake, Gravity, Chaos), live preview
 - Before/after slider, CSS output panel, score system, hidden chaos panel
+- Chrome DevTools Panel clone
+- Lighthouse Centering Report (SVG gauges)
+- Fake Changelog
+- Pro Tier (3 tiers)
 
 ## URLs
 - Live: https://css-uncenter.netlify.app
