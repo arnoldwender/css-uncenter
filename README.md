@@ -18,6 +18,10 @@ Built by [Arnold Wender](https://arnoldwender.com)
 - Hidden chaos panel with secret advanced controls
 - Physics-based animations for realistic element displacement
 - Confetti when you achieve peak un-centeredness
+- Chrome DevTools Panel clone — inspect your un-centered elements in a pixel-perfect DevTools replica
+- Lighthouse Centering Report — SVG gauge visualizations scoring how far off-center your elements are
+- Fake Changelog — version history of CSS centering techniques that were deliberately broken
+- Pro Tier (3 tiers) — Basic, Professional, and Enterprise levels of un-centering power
 
 ## Tech Stack
 
