@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { CHAOS_MODES, type ChaosMode } from "../constants";
 
 /* ── Mode selector tabs for switching chaos style ── */
@@ -24,8 +24,10 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
         {CHAOS_MODES.map((mode) => {
           const isActive = activeMode === mode.id;
           return (
-            <motion.button
+            <m.button
               key={mode.id}
+              type="button"
+              aria-pressed={isActive}
               onClick={() => onModeChange(mode.id)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -34,7 +36,7 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
                 border: `1px solid ${isActive ? "#00ffff66" : "#00ffff22"}`,
                 color: isActive ? "#00ffff" : "#00ffff77",
                 fontFamily: "monospace",
-                fontSize: "0.62rem",
+                fontSize: "var(--text-body)",
                 padding: "0.6rem 0.5rem",
                 cursor: "pointer",
                 textAlign: "left",
@@ -44,8 +46,9 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
               }}
             >
               {isActive && (
-                <motion.div
-                  layoutId="mode-indicator"
+                <m.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   style={{
                     position: "absolute",
                     top: 0,
@@ -60,10 +63,10 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
               <div style={{ fontWeight: isActive ? "bold" : "normal", marginBottom: "0.2rem" }}>
                 {isActive ? "> " : "  "}{mode.label}
               </div>
-              <div style={{ fontSize: "0.55rem", color: "#00ffff44", lineHeight: "1.4" }}>
+              <div style={{ fontSize: "var(--text-body)", color: "var(--color-text-readable)", lineHeight: "var(--line-body)" }}>
                 {mode.description}
               </div>
-            </motion.button>
+            </m.button>
           );
         })}
       </div>

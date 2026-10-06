@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 /* ── Score display showing current points, high score, and global counter ── */
 interface ScoreBoardProps {
@@ -28,7 +28,7 @@ export function ScoreBoard({ score, highScore, globalCounter }: ScoreBoardProps)
         <div style={{ fontSize: "0.5rem", color: "#00ffff55", letterSpacing: "2px", marginBottom: "0.3rem" }}>
           SCORE
         </div>
-        <motion.div
+        <m.div
           key={score}
           initial={{ scale: 1.3, color: "#00ff88" }}
           animate={{ scale: 1, color: "#00ffff" }}
@@ -41,7 +41,7 @@ export function ScoreBoard({ score, highScore, globalCounter }: ScoreBoardProps)
           }}
         >
           {score}
-        </motion.div>
+        </m.div>
       </div>
 
       {/* High score */}

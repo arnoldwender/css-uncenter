@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 /* ── Chaos meter with smooth animated fill and color transitions ── */
 interface ChaosMeterProps {
@@ -35,17 +35,17 @@ export function ChaosMeter({ chaos }: ChaosMeterProps) {
         }}
       >
         <span>CHAOS LEVEL — {label}</span>
-        <motion.span
+        <m.span
           key={chaos}
           initial={{ scale: 1.3 }}
           animate={{ scale: 1 }}
           style={{ color: barColor }}
         >
           {chaos}%
-        </motion.span>
+        </m.span>
       </div>
       <div style={{ height: "6px", background: "#00ffff11", position: "relative", overflow: "hidden" }}>
-        <motion.div
+        <m.div
           animate={{
             width: `${chaos}%`,
             backgroundColor: barColor,
@@ -59,7 +59,7 @@ export function ChaosMeter({ chaos }: ChaosMeterProps) {
         />
         {/* Animated glow pulse at the end of the bar */}
         {chaos > 0 && chaos < 100 && (
-          <motion.div
+          <m.div
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 1, repeat: Infinity }}
             style={{

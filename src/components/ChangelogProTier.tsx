@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useId } from "react";
+import { m, AnimatePresence } from "framer-motion";
 
 /* ── Fake Changelog + Pro Tier marketing panel ── */
 
@@ -119,6 +119,7 @@ const PRO_FEATURES = [
 ];
 
 export function ChangelogProTier() {
+  const panelId = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<"changelog" | "pro">("changelog");
 
@@ -136,7 +137,9 @@ export function ChangelogProTier() {
 
   return (
     <div style={{ marginBottom: "1.5rem" }}>
-      <motion.button
+      <m.button
+        aria-expanded={isOpen}
+        aria-controls={panelId}
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.01 }}
         style={{
@@ -170,11 +173,12 @@ export function ChangelogProTier() {
           </span>
         </span>
         <span style={{ fontSize: "0.7rem" }}>{isOpen ? "[-]" : "[+]"}</span>
-      </motion.button>
+      </m.button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
+            id={panelId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -227,7 +231,7 @@ export function ChangelogProTier() {
                   }}
                 >
                   {CHANGELOG.map((entry, i) => (
-                    <motion.div
+                    <m.div
                       key={i}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -269,7 +273,7 @@ export function ChangelogProTier() {
                       <div style={{ fontSize: "10px", color: "#9aa0a6", lineHeight: "1.5", fontFamily: "monospace" }}>
                         {entry.description}
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               )}
@@ -294,7 +298,7 @@ export function ChangelogProTier() {
 
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px" }}>
                     {PRO_FEATURES.map((tier, i) => (
-                      <motion.div
+                      <m.div
                         key={tier.tier}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -363,7 +367,7 @@ export function ChangelogProTier() {
                             </div>
                           ))}
                         </div>
-                        <motion.button
+                        <m.button
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
                           style={{
@@ -381,8 +385,8 @@ export function ChangelogProTier() {
                           onClick={() => alert("Just kidding. This is free. Chaos can't be monetized.")}
                         >
                           {i === 2 ? "EMBRACE CHAOS" : "SELECT PLAN"}
-                        </motion.button>
-                      </motion.div>
+                        </m.button>
+                      </m.div>
                     ))}
                   </div>
 
@@ -406,7 +410,7 @@ export function ChangelogProTier() {
                 </div>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

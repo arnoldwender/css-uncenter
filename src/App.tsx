@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   CSS_SNIPPETS,
   EXTRA_SNIPPETS,
@@ -48,7 +48,7 @@ export default function App() {
   const [applied, setApplied] = useState<string[]>([]);
   const [appliedSnippets, setAppliedSnippets] = useState<CSSSnippet[]>([]);
   const [score, setScore] = useState(0);
-  const [highScore] = useState(getHighScore);
+  const [highScore, setSessionHighScore] = useState(getHighScore);
   const [globalCounter, setGlobalCounter] = useState(getGlobalCounter);
 
   /* Achievement tracking */
@@ -91,6 +91,7 @@ export default function App() {
   /* Persist high score */
   useEffect(() => {
     setHighScore(score);
+    setSessionHighScore((current) => Math.max(current, score));
   }, [score]);
 
   /* Fire confetti and victory sound at max chaos */
@@ -212,7 +213,7 @@ export default function App() {
 
         {/* Easter egg: extra snippets unlocked at max chaos — no AnimatePresence to prevent render blocking */}
         {extraUnlocked && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -223,7 +224,7 @@ export default function App() {
               onApply={applyExtraChaos}
               title='EVEN MORE CHAOS — UNLOCKED'
             />
-          </motion.div>
+          </m.div>
         )}
 
         <CSSOutputPanel appliedSnippets={appliedSnippets} />
@@ -232,7 +233,7 @@ export default function App() {
         <DevToolsPanel appliedSnippets={appliedSnippets} mode={mode} chaos={chaos} />
 
         {/* Lighthouse-style centering compliance gauges */}
-        <CenteringReport appliedSnippets={appliedSnippets} chaos={chaos} score={score} />
+        <CenteringReport appliedSnippets={appliedSnippets} chaos={chaos} />
 
         {/* Fake changelog and Pro tier marketing */}
         <ChangelogProTier />
@@ -268,12 +269,12 @@ export default function App() {
 
         {/* Reset button */}
         {applied.length > 0 && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             style={{ textAlign: "center", marginBottom: "1.5rem" }}
           >
-            <motion.button
+            <m.button
               onClick={resetChaos}
               whileHover={{ scale: 1.05, borderColor: "#ff000088" }}
               whileTap={{ scale: 0.95 }}
@@ -289,8 +290,8 @@ export default function App() {
               }}
             >
               RESTORE SANITY (undo all)
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
         )}
 
         <Footer chaosCount={c} mode={mode} />

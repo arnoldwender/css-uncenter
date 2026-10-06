@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { type ChaosMode, type CSSSnippet, EASTER_EGG_MESSAGES } from "../constants";
 
 /* ── Realistic website preview that gets destroyed by chaos ── */
@@ -107,7 +107,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
           LIVE PREVIEW
         </div>
         {c > 0 && (
-          <motion.button
+          <m.button
             onClick={onTryCenter}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -123,7 +123,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
             }}
           >
             TRY TO CENTER
-          </motion.button>
+          </m.button>
         )}
       </div>
 
@@ -138,7 +138,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
         }}
       >
         {/* Fake website header/nav bar */}
-        <motion.div
+        <m.div
           animate={{ ...getChaosValues(appliedSnippets, mode, 0), y: getChaosValues(appliedSnippets, mode, 0).y + physicsGravity * 0.3 }}
           transition={{ type: "spring", stiffness: 120, damping: 15 }}
           style={{
@@ -167,10 +167,10 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
             <span>Products</span>
             <span>Contact</span>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Hero section */}
-        <motion.div
+        <m.div
           animate={{ ...getChaosValues(appliedSnippets, mode, 1), y: getChaosValues(appliedSnippets, mode, 1).y + physicsGravity * 0.5 }}
           transition={{ type: "spring", stiffness: 100, damping: 12 }}
           style={{
@@ -207,7 +207,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
               ? "Please ignore the layout. It's intentional. (It's not.)"
               : "This is our compelling value proposition that will convince you to buy our product."}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Cards row */}
         <div
@@ -221,7 +221,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
           {["Fast", "Reliable", "Affordable"].map((label, i) => {
             const vals = getChaosValues(appliedSnippets, mode, i + 2);
             return (
-              <motion.div
+              <m.div
                 key={label}
                 animate={{ ...vals, y: vals.y + physicsGravity * (0.6 + i * 0.15) }}
                 transition={{ type: "spring", stiffness: 80 + i * 20, damping: 10 + i * 3 }}
@@ -248,13 +248,13 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
                 <div style={{ fontSize: "0.55rem", color: mode === "corporate" ? "#999" : "#00ffff55", lineHeight: "1.4" }}>
                   {c >= 5 ? "????" : "Lorem ipsum dolor sit amet."}
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
         {/* CTA button */}
-        <motion.div
+        <m.div
           animate={{ ...getChaosValues(appliedSnippets, mode, 5), y: getChaosValues(appliedSnippets, mode, 5).y + physicsGravity * 0.8 }}
           transition={{ type: "spring", stiffness: 90, damping: 12 }}
           style={{
@@ -262,7 +262,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
             padding: "1rem",
           }}
         >
-          <motion.button
+          <m.button
             whileHover={{ scale: c < 3 ? 1.05 : 0.95 }}
             style={{
               background: mode === "corporate" ? "#003366" : "transparent",
@@ -277,11 +277,11 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
             }}
           >
             {c >= 5 ? "HELP" : c >= 3 ? "PLEASE STOP" : "BUY NOW"}
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
 
         {/* Footer bar in preview */}
-        <motion.div
+        <m.div
           animate={{ ...getChaosValues(appliedSnippets, mode, 6), y: getChaosValues(appliedSnippets, mode, 6).y + physicsGravity }}
           transition={{ type: "spring", stiffness: 70, damping: 14 }}
           style={{
@@ -294,12 +294,12 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
           }}
         >
           {mode === "corporate" ? "Copyright 2003 ACME Corp. All Rights Reserved. Best viewed in IE6." : "2026 Generic Startup Inc. No divs were centered."}
-        </motion.div>
+        </m.div>
 
         {/* Max chaos watermark */}
         <AnimatePresence>
           {isMaxChaos && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
               animate={{ opacity: 1, scale: 1, rotate: -30 }}
               exit={{ opacity: 0, scale: 0.5 }}
@@ -319,14 +319,14 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
             >
               <div>MAXIMUM</div>
               <div>CHAOS</div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
         {/* Easter egg: max chaos message */}
         <AnimatePresence>
           {isMaxChaos && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               style={{
@@ -343,7 +343,7 @@ export function LivePreview({ chaosCount, appliedSnippets, mode, onTryCenter }: 
               }}
             >
               {EASTER_EGG_MESSAGES.maxChaos}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

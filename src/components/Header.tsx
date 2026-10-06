@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { type ChaosMode } from "../constants";
 
 /* ── App header with glitch title and mode-aware styling ── */
@@ -11,7 +11,7 @@ interface HeaderProps {
 
 export function Header({ title, chaosCount: c, mode, score }: HeaderProps) {
   return (
-    <motion.div
+    <m.div
       animate={{
         marginLeft: c >= 1 ? `${c * 8}px` : "0px",
         rotate: mode === "anarchy" && c >= 3 ? c * 0.5 : 0,
@@ -33,7 +33,7 @@ export function Header({ title, chaosCount: c, mode, score }: HeaderProps) {
       >
         ARNOLD WENDER LAYOUT DESTRUCTION SUITE
       </div>
-      <motion.h1
+      <m.h1
         animate={{
           textAlign: c >= 2 ? "right" : "left",
         }}
@@ -47,7 +47,7 @@ export function Header({ title, chaosCount: c, mode, score }: HeaderProps) {
         }}
       >
         {title}
-      </motion.h1>
+      </m.h1>
       <div
         style={{
           fontSize: "0.7rem",
@@ -60,17 +60,17 @@ export function Header({ title, chaosCount: c, mode, score }: HeaderProps) {
       >
         <span>v6.6.6 — MAKING DIVS SUFFER SINCE 2026</span>
         {score > 0 && (
-          <motion.span
+          <m.span
             key={score}
             initial={{ scale: 1.5, color: "#00ff88" }}
             animate={{ scale: 1, color: "#00ffff88" }}
             style={{ fontSize: "0.65rem", letterSpacing: "1px" }}
           >
             {score} PTS
-          </motion.span>
+          </m.span>
         )}
       </div>
-      <motion.div
+      <m.div
         animate={{
           justifyContent: c >= 3 ? "flex-end" : "flex-start",
         }}
@@ -87,7 +87,7 @@ export function Header({ title, chaosCount: c, mode, score }: HeaderProps) {
         <span>GRID HATER</span>
         <span>FLOAT GANG</span>
         <span>!IMPORTANT EVERYWHERE</span>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

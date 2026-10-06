@@ -25,3 +25,11 @@ dist-ssr
 # Local Netlify folder
 .netlify
 .bolt
+
+# Browser verification artifacts stay local.
+.playwright-mcp/
+hackaton-*.png
+
+# Session reports and hand-offs carry local paths; they are kept outside this public repository.
+docs/handoffs/
+docs/hackaton-runs/

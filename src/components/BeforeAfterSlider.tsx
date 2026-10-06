@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { type ChaosMode, type CSSSnippet } from "../constants";
 
 /* ── Before/After drag comparison slider ── */
@@ -10,21 +10,6 @@ interface BeforeAfterSliderProps {
 
 export function BeforeAfterSlider({ chaosCount, appliedSnippets, mode }: BeforeAfterSliderProps) {
   const [sliderPos, setSliderPos] = useState(50);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-
-  const handleMove = useCallback((clientX: number) => {
-    if (!isDragging.current || !containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPos(percent);
-  }, []);
-
-  const handleMouseDown = useCallback(() => { isDragging.current = true; }, []);
-  const handleMouseUp = useCallback(() => { isDragging.current = false; }, []);
-  const handleMouseMove = useCallback((e: React.MouseEvent) => handleMove(e.clientX), [handleMove]);
-  const handleTouchMove = useCallback((e: React.TouchEvent) => handleMove(e.touches[0].clientX), [handleMove]);
 
   if (chaosCount === 0) return null;
 
@@ -45,18 +30,11 @@ export function BeforeAfterSlider({ chaosCount, appliedSnippets, mode }: BeforeA
           marginBottom: "0.75rem",
         }}
       >
-        BEFORE / AFTER — DRAG TO COMPARE
+        BEFORE / AFTER — DRAG OR USE ARROW KEYS TO COMPARE
       </div>
 
       <div
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        onTouchStart={handleMouseDown}
-        onTouchEnd={handleMouseUp}
-        onTouchMove={handleTouchMove}
+        className="comparison-preview"
         style={{
           position: "relative",
           height: "200px",
@@ -215,8 +193,8 @@ export function BeforeAfterSlider({ chaosCount, appliedSnippets, mode }: BeforeA
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "24px",
-              height: "24px",
+              width: "var(--size-control-min)",
+              height: "var(--size-control-min)",
               borderRadius: "50%",
               background: "#000",
               border: "2px solid #00ffff",
@@ -231,6 +209,17 @@ export function BeforeAfterSlider({ chaosCount, appliedSnippets, mode }: BeforeA
             {"<>"}
           </div>
         </div>
+        {/* Native range handles keyboard, touch and pointer cancellation consistently. */}
+        <input
+          className="comparison-control"
+          type="range"
+          min={0}
+          max={100}
+          value={sliderPos}
+          aria-label="Before and after comparison"
+          aria-valuetext={`${sliderPos}% before, ${100 - sliderPos}% after`}
+          onChange={(event) => setSliderPos(Number(event.target.value))}
+        />
       </div>
     </div>
   );
