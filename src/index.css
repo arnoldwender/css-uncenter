@@ -2,6 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Shared controls retain the cyan theme while keeping usable targets and focus. */
+:root {
+  --color-focus: #00ffff;
+  --color-text-readable: #b3ffff;
+  --color-surface: #000;
+  --color-border: #00ffff44;
+  --color-border-subtle: #00ffff22;
+  --color-surface-applied: #00ffff0f;
+  --size-control-min: 44px;
+  --size-focus-ring: 2px;
+  --size-border: 1px;
+  --space-focus-offset: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --text-body: 16px;
+  --line-body: 1.5;
+  --font-code: monospace;
+  --layer-comparison: 11;
+}
+
+button {
+  min-width: var(--size-control-min);
+  min-height: var(--size-control-min);
+}
+
+button:focus-visible,
+.comparison-preview:focus-within {
+  outline: var(--size-focus-ring) solid var(--color-focus);
+  outline-offset: var(--space-focus-offset);
+}
+
+.snippet-card {
+  border: var(--size-border) solid var(--color-border-subtle);
+}
+
+.snippet-card[data-applied="true"] {
+  border-color: var(--color-border);
+  background: var(--color-surface-applied);
+}
+
+.snippet-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  border: none;
+  color: var(--color-focus);
+  font-family: var(--font-code);
+  font-size: var(--text-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.snippet-trigger:disabled {
+  color: var(--color-text-readable);
+  cursor: default;
+}
+
+.snippet-code {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text-readable);
+  font-size: var(--text-body);
+  line-height: var(--line-body);
+  overflow-x: auto;
+}
+
+.comparison-control {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: var(--size-control-min);
+  margin: 0;
+  opacity: 0;
+  cursor: col-resize;
+  z-index: var(--layer-comparison);
+}
+
+/* Native CSS animations need their own opt-out alongside MotionConfig. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 *,
 *::before,
 *::after {

@@ -1,5 +1,4 @@
-import { useRef, useState, useCallback } from "react";
-import html2canvas from "html2canvas";
+import { useRef, useState, useCallback, useId } from "react";
 
 /* ── Shareable before/after comparison image card ── */
 interface ShareCardProps {
@@ -12,34 +11,47 @@ export function ShareCard({ score, chaosCount, mode }: ShareCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [generating, setGenerating] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const panelId = useId();
+  const [error, setError] = useState<string | null>(null);
 
   /* Generate and download the share image */
   const generateImage = useCallback(async () => {
     if (!cardRef.current || generating) return;
     setGenerating(true);
+    setError(null);
 
     try {
+      const { default: html2canvas } = await import("html2canvas");
+      // The panel can close while the capture dependency is loading.
+      if (!cardRef.current) return;
+      let capturedScore = cardRef.current.dataset.score;
       const canvas = await html2canvas(cardRef.current, {
         backgroundColor: "#000000",
         scale: 2,
+        // Read the cloned snapshot: React may update the live card during capture.
+        onclone: (_document, element) => {
+          capturedScore = element.dataset.score;
+        },
       });
 
       const link = document.createElement("a");
-      link.download = `css-uncenter-score-${score}.png`;
+      link.download = `css-uncenter-score-${capturedScore}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
     } catch {
-      /* html2canvas failed */
+      setError("The image could not be generated. Please try again.");
     } finally {
       setGenerating(false);
     }
-  }, [score, generating]);
+  }, [generating]);
 
   if (chaosCount === 0) return null;
 
   return (
     <div style={{ marginBottom: "1.5rem" }}>
       <button
+        aria-expanded={showCard}
+        aria-controls={panelId}
         onClick={() => setShowCard(!showCard)}
         style={{
           background: "transparent",
@@ -61,10 +73,11 @@ export function ShareCard({ score, chaosCount, mode }: ShareCardProps) {
       </button>
 
       {showCard && (
-        <div style={{ marginTop: "0.5rem" }}>
+        <div id={panelId} style={{ marginTop: "0.5rem" }}>
           {/* The card that will be captured as an image */}
           <div
             ref={cardRef}
+            data-score={score}
             style={{
               background: "#000",
               border: "1px solid #00ffff33",
@@ -143,6 +156,7 @@ export function ShareCard({ score, chaosCount, mode }: ShareCardProps) {
           >
             {generating ? "GENERATING..." : "DOWNLOAD SHARE IMAGE"}
           </button>
+          {error && <p role="alert">{error}</p>}
         </div>
       )}
     </div>

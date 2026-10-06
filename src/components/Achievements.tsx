@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { type Achievement } from "../constants";
 import { Zap, Flame, Skull, Bomb, Trophy, Crown } from "lucide-react";
 
@@ -42,7 +42,7 @@ export function Achievements({ achievements, unlockedIds, newlyUnlocked }: Achie
           const IconComponent = ICON_MAP[ach.icon] || Zap;
 
           return (
-            <motion.div
+            <m.div
               key={ach.id}
               animate={isNew ? { scale: [1, 1.15, 1], borderColor: ["#00ffff22", "#00ffff", "#00ffff22"] } : {}}
               transition={{ duration: 0.6 }}
@@ -67,7 +67,7 @@ export function Achievements({ achievements, unlockedIds, newlyUnlocked }: Achie
               <div style={{ fontSize: "0.45rem", color: "#00ffff33", lineHeight: "1.3" }}>
                 {unlocked ? ach.description : "???"}
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
@@ -75,7 +75,7 @@ export function Achievements({ achievements, unlockedIds, newlyUnlocked }: Achie
       {/* Toast notification for newly unlocked achievement */}
       <AnimatePresence>
         {newlyUnlocked && hasAny && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}
             exit={{ opacity: 0, y: -20, x: "-50%" }}
@@ -99,7 +99,7 @@ export function Achievements({ achievements, unlockedIds, newlyUnlocked }: Achie
             <div style={{ fontSize: "0.75rem", color: "#00ffff", letterSpacing: "1px" }}>
               {achievements.find((a) => a.id === newlyUnlocked)?.title}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

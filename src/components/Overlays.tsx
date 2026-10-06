@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { EASTER_EGG_MESSAGES } from "../constants";
 
 /* ── Scanline CRT overlay effect ── */
@@ -50,7 +50,7 @@ export function RubberBandOverlay({ show }: RubberBandOverlayProps) {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -66,7 +66,7 @@ export function RubberBandOverlay({ show }: RubberBandOverlayProps) {
             justifyContent: "center",
           }}
         >
-          <motion.div
+          <m.div
             initial={{ scale: 0, rotate: -10 }}
             animate={{ scale: 1, rotate: 0 }}
             exit={{ scale: 0, rotate: 10 }}
@@ -87,8 +87,8 @@ export function RubberBandOverlay({ show }: RubberBandOverlayProps) {
             <div style={{ fontSize: "0.55rem", color: "#ff000066", marginTop: "0.3rem", letterSpacing: "1px" }}>
               ALL ELEMENTS HAVE BEEN SNAPPED BACK OFF-CENTER
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

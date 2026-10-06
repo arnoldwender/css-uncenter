@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useId } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import { type CSSSnippet, type ChaosMode } from "../constants";
 
 /* ── Chrome DevTools-style side panel showing CSS property modifications ── */
@@ -37,6 +37,7 @@ const getBoxModelValues = (chaos: number) => ({
 });
 
 export function DevToolsPanel({ appliedSnippets, mode, chaos }: DevToolsPanelProps) {
+  const panelId = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"styles" | "computed">("styles");
 
@@ -47,7 +48,9 @@ export function DevToolsPanel({ appliedSnippets, mode, chaos }: DevToolsPanelPro
   return (
     <div style={{ marginBottom: "1.5rem" }}>
       {/* Panel toggle styled like DevTools tab bar */}
-      <motion.button
+      <m.button
+        aria-expanded={isOpen}
+        aria-controls={panelId}
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.01 }}
         style={{
@@ -77,11 +80,12 @@ export function DevToolsPanel({ appliedSnippets, mode, chaos }: DevToolsPanelPro
         <span style={{ color: "#5f6368", fontSize: "10px" }}>
           {isOpen ? "[-]" : "[+]"}
         </span>
-      </motion.button>
+      </m.button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
+            id={panelId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -392,7 +396,7 @@ export function DevToolsPanel({ appliedSnippets, mode, chaos }: DevToolsPanelPro
                 </div>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

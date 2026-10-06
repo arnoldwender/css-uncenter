@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo, useId } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import { type CSSSnippet, CSS_COMMENTS } from "../constants";
 
 /* ── CSS output panel with funny comments, copy & download ── */
@@ -8,6 +8,7 @@ interface CSSOutputPanelProps {
 }
 
 export function CSSOutputPanel({ appliedSnippets }: CSSOutputPanelProps) {
+  const panelId = useId();
   const [copied, setCopied] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -70,7 +71,9 @@ export function CSSOutputPanel({ appliedSnippets }: CSSOutputPanelProps) {
 
   return (
     <div style={{ marginBottom: "1.5rem" }}>
-      <motion.button
+      <m.button
+        aria-expanded={isOpen}
+        aria-controls={panelId}
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.01 }}
         style={{
@@ -91,11 +94,12 @@ export function CSSOutputPanel({ appliedSnippets }: CSSOutputPanelProps) {
       >
         <span>CSS OUTPUT {appliedSnippets.length > 0 ? `(${appliedSnippets.length} rules)` : ""}</span>
         <span style={{ fontSize: "0.7rem" }}>{isOpen ? "[-]" : "[+]"}</span>
-      </motion.button>
+      </m.button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
+            id={panelId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -168,7 +172,7 @@ export function CSSOutputPanel({ appliedSnippets }: CSSOutputPanelProps) {
                 {cssOutput}
               </pre>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

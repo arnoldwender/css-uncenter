@@ -41,7 +41,7 @@ git clone https://github.com/arnoldwender/css-uncenter.git
 cd css-uncenter
 
 # Install dependencies
-npm install
+npm ci
 
 # Start development server
 npm run dev
@@ -55,6 +55,18 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 npm run build
 npm run preview
 ```
+
+## Verification
+
+```bash
+npm run typecheck
+npm run lint
+npm run test:storage
+```
+
+The animation root uses `LazyMotion` with `domAnimation`; mounted animated elements use `m`. Shared layout animations, drag and pan would require revisiting that feature bundle. Screenshot and confetti libraries load when used.
+
+After a build, `node scripts/bundle-budget.mjs dist` checks the initial JavaScript + CSS budget (300,000 bytes) and the largest chunk (200,000 bytes).
 
 ## Contributing
 

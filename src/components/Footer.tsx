@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { type ChaosMode } from "../constants";
 
 /* ── Footer with chaos-reactive transforms ── */
@@ -9,7 +9,7 @@ interface FooterProps {
 
 export function Footer({ chaosCount: c, mode }: FooterProps) {
   return (
-    <motion.div
+    <m.div
       animate={{
         textAlign: c >= 3 ? "right" : "center",
         rotate: c >= 4 ? 1 : 0,
@@ -36,6 +36,6 @@ export function Footer({ chaosCount: c, mode }: FooterProps) {
       <div style={{ color: "#ff000022", marginTop: "0.3rem" }}>
         HTTP 418 — EVEN THIS FOOTER IS MISALIGNED
       </div>
-    </motion.div>
+    </m.div>
   );
 }
