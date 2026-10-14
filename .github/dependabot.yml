@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Preserve security-only updates; adding this file must not enable new version PRs.
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: tailwindcss
+        update-types: ["version-update:semver-major"]
