@@ -9,6 +9,7 @@ interface FooterProps {
 
 export function Footer({ chaosCount: c, mode }: FooterProps) {
   return (
+    <>
     <m.div
       animate={{
         textAlign: c >= 3 ? "right" : "center",
@@ -37,5 +38,14 @@ export function Footer({ chaosCount: c, mode }: FooterProps) {
         HTTP 418 — EVEN THIS FOOTER IS MISALIGNED
       </div>
     </m.div>
+    {/* Legal links stay outside the chaos transforms and readable (DDG § 5: "unmittelbar erreichbar") */}
+    <nav
+      aria-label="Rechtliches"
+      style={{ display: "flex", justifyContent: "center", gap: "1.5rem", fontSize: "0.75rem", letterSpacing: "1px" }}
+    >
+      <a href="/impressum/" style={{ color: "#00ffff", padding: "0.75rem 0", minHeight: "44px" }}>Impressum</a>
+      <a href="/datenschutz/" style={{ color: "#00ffff", padding: "0.75rem 0", minHeight: "44px" }}>Datenschutz</a>
+    </nav>
+    </>
   );
 }
